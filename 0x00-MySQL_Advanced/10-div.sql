@@ -9,5 +9,4 @@ BEGIN
 		RETURN a / b;
 	END IF;
 END //
-
 DELIMITER ;
