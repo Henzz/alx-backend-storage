@@ -1,4 +1,4 @@
-reate the SafeDiv function
+--create the SafeDiv function
 DELIMITER //
 CREATE FUNCTION SafeDiv(a INT, b INT)
 RETURNS FLOAT
