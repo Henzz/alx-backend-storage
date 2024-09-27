@@ -1,12 +1,13 @@
---create the SafeDiv function
+--create the SafeDiv function that divides (and returns) the first
+-- by the second number or returns 0 if the second number is equal to 0.
 DELIMITER //
 CREATE FUNCTION SafeDiv(a INT, b INT)
-RETURNS FLOAT
+RETURNS FLOAT DETERMINISTIC
 BEGIN
-	IF b = 0 THEN
-		RETURN 0;
-	ELSE
-		RETURN a / b;
+	DECLARE result FLOAT DEFAULT 0;
+	IF b != 0 THEN
+		SET result = a / b;
 	END IF;
+	RETURN result;
 END //
 DELIMITER ;
