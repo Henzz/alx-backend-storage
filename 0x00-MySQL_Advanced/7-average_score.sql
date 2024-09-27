@@ -1,17 +1,19 @@
--- Create the ComputeAverageScoreForUser stored procedure
+-- Create the ComputeverageScoreForUser stored procedure
 DELIMITER //
 
-CREATE PROCEDURE ComputeAverageScoreForUser(
-	    IN user_id INT
-)
+CREATE PROCEDURE ComputeAverageScoreForUser (IN user_id INT)
 BEGIN
-	UPDATE users
-	SET average_score = (
-		SELECT AVG(score)
-		FROM corrections
-		WHERE user_id = ComputeAverageScoreForUser.user_id
-	)
-	WHERE id = user_id;
+    DECLARE total_score INT DEFAULT 0;
+    DECLARE projects_count INT DEFAULT 0;
+
+    SELECT SUM(score), COUNT(*)
+    INTO total_score, projects_count
+    FROM corrections
+    WHERE user_id = user_id;
+
+    UPDATE users
+    SET average_score = IF(projects_count = 0, 0, total_score / projects_count)
+    WHERE id = user_id;
 END //
 
 DELIMITER ;
